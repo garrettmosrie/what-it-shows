@@ -15,8 +15,9 @@ signature: 'Garrett Mosrie'
 
 [#4471](/kb/incidents/4471) is marked known: one issue, one fix queued. The desk's own cause table
 says otherwise. Read row by row, with the note under it, it holds three problems, and the queued
-parser fix closes one of them. Each problem now has its own ticket, which covers the reports the
-table counts for it.
+parser fix closes one of them. Each problem now has its own ticket, and each report is in one of
+them: the parser ticket leaves out the one-day moves, which the table counts under `parser` and
+names in its note.
 
 <Callout kind="warn">
 Not one issue. Three problems, three tickets. The parser fix leaves the other two open.
@@ -28,7 +29,7 @@ Not one issue. Three problems, three tickets. The parser fix leaves the other tw
 
 | problem | where the table counts it | ticket |
 | --- | --- | --- |
-| `parser` | the `parser` row | [#1](https://github.com/garrettmosrie/what-it-shows/issues/1) |
+| `parser` | the `parser` row, less the one-day moves in the note | [#1](https://github.com/garrettmosrie/what-it-shows/issues/1) |
 | `hint` | the `hint` row, which has no ticket of its own until now | [#2](https://github.com/garrettmosrie/what-it-shows/issues/2) |
 | `one-day` | the note under the table: read as a one-day move, filed under `parser` by tenant | [#3](https://github.com/garrettmosrie/what-it-shows/issues/3) |
 
@@ -58,7 +59,7 @@ Some reports are not a swap at all. "Invite says Tuesday 12 May. Calendar says M
 (R-41202). A day/month swap cannot move a date by one day, so this is a different bug. It looks
 like a time-zone conversion: one meeting showed Tuesday to a client in Lisbon and Monday to a
 client in Toronto (R-41344). The desk spotted these (`desk-notes.json`); the table counts them
-under `parser`, where they are filed, and names them in the note. Ticket
+under `parser`, where they are filed, and names them in the note. They belong here, not in #1. Ticket
 [#3](https://github.com/garrettmosrie/what-it-shows/issues/3).
 
 ## What changes on the desk
