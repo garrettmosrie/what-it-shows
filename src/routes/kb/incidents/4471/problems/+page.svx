@@ -1,6 +1,6 @@
 ---
 layout: runbook
-title: '#4471 · three problems, not one'
+title: '#4471 · two causes, not one'
 owner: Garrett Mosrie
 status: open
 reviewed: 2026-10-29
@@ -14,28 +14,27 @@ signature: 'Garrett Mosrie'
 </script>
 
 [#4471](/kb/incidents/4471) is marked known: one issue, one fix queued. The desk's own cause table
-says otherwise. Read row by row, with the note under it, it holds three problems, and the queued
-parser fix closes one of them. Each problem now has its own ticket, which covers the reports the
+says otherwise. It holds two causes, and the queued parser fix closes one of them. The other,
+`hint`, had no ticket of its own. Each cause now has its own ticket, which covers the reports the
 table counts for it.
 
 <Callout kind="warn">
-Not one issue. Three problems, three tickets. The parser fix leaves the other two open.
+Not one issue. Two causes, two tickets. The parser fix leaves `hint` open.
 </Callout>
 
 ## What #4471 holds
 
 <CauseTable ticket={4471} />
 
-| problem | where the table counts it | ticket |
+| cause | where the table counts it | ticket |
 | --- | --- | --- |
-| `parser` | the `parser` row | [#1](https://github.com/garrettmosrie/what-it-shows/issues/1) |
-| `hint` | the `hint` row, which has no ticket of its own until now | [#2](https://github.com/garrettmosrie/what-it-shows/issues/2) |
-| `one-day` | the note under the table: read as a one-day move, filed under `parser` by tenant | [#3](https://github.com/garrettmosrie/what-it-shows/issues/3) |
+| `parser` | the `parser` row, with the one-day moves named in the note under it | [#1](https://github.com/garrettmosrie/what-it-shows/issues/1) |
+| `hint` | the `hint` row, which had no ticket of its own | [#2](https://github.com/garrettmosrie/what-it-shows/issues/2) |
 
 Each report is placed by its tenant, channel and booking form (`causes.ts`), not by the tag intake
 gave it. The tag is a guess from the reporter's browser, and the table shows how often it disagrees.
 
-## The three problems
+## The two causes
 
 ### `parser`: the shared parser reads day-first dates month first
 
@@ -43,6 +42,12 @@ Every tenant in #4471 writes the day first. The shared parser reads every date m
 booking for 7 April goes out for 4 July. Only dates whose day is 12 or less can flip, which is why
 it looks random from the outside. This is the bug #4471 was opened for, and the queued fix is for
 it. Ticket [#1](https://github.com/garrettmosrie/what-it-shows/issues/1).
+
+The note under the table names the reports the desk read as a one-day move: "Invite says Tuesday
+12 May. Calendar says Monday 11 May." (R-41202). A day/month swap cannot move a date by one day.
+They are counted here, where the desk files them, and #1 lists them. When the parser fix ships,
+check them first: if they still happen, they are a bug of their own, most likely a time zone (one
+meeting showed Tuesday in Lisbon and Monday in Toronto, R-41344).
 
 ### `hint`: booking-v3's form tells day-first tenants to type month first
 
@@ -52,18 +57,9 @@ swap, but the code is different: the parser fix does not touch it. Only reports 
 through the form at a booking-v3 tenant have it. Ticket
 [#2](https://github.com/garrettmosrie/what-it-shows/issues/2).
 
-### `one-day`: dates that move by one day
-
-Some reports are not a swap at all. "Invite says Tuesday 12 May. Calendar says Monday 11 May."
-(R-41202). A day/month swap cannot move a date by one day, so this is a different bug. It looks
-like a time-zone conversion: one meeting showed Tuesday to a client in Lisbon and Monday to a
-client in Toronto (R-41344). The desk spotted these (`desk-notes.json`); the table counts them
-under `parser`, where they are filed, and names them in the note. Ticket
-[#3](https://github.com/garrettmosrie/what-it-shows/issues/3).
-
 ## What changes on the desk
 
-- #4471 keeps `parser`. New `hint` reports go to #2, one-day moves to #3.
+- #4471 keeps `parser`. New `hint` reports go to #2.
 - Place a report by tenant, channel and form, not by intake's tag.
 
 <RenderStamp {signature} />
