@@ -8,28 +8,29 @@ signature: 'Garrett Mosrie'
 ---
 
 <script>
-  import ProblemTable from '#lib/kb/ProblemTable.svelte';
+  import CauseTable from '#lib/kb/CauseTable.svelte';
   import Callout from '#lib/kb/Callout.svelte';
   import RenderStamp from '#lib/kb/RenderStamp.svelte';
-
-  const issues = {
-    parser: 'https://github.com/garrettmosrie/what-it-shows/issues/1',
-    hint: 'https://github.com/garrettmosrie/what-it-shows/issues/2',
-    'one-day': 'https://github.com/garrettmosrie/what-it-shows/issues/3',
-  };
 </script>
 
-[#4471](/kb/incidents/4471) is marked known: one issue, one fix queued. The reports merged into it
-say otherwise. Placed by what caused them, they are three problems, and the queued parser fix
-closes one of them.
+[#4471](/kb/incidents/4471) is marked known: one issue, one fix queued. The desk's own cause table
+says otherwise. Read row by row, with the note under it, it holds three problems, and the queued
+parser fix closes one of them. Each problem now has its own ticket, which covers the reports the
+table counts for it.
 
 <Callout kind="warn">
-Not one issue. Three problems, each with its own ticket now. The parser fix leaves the other two open.
+Not one issue. Three problems, three tickets. The parser fix leaves the other two open.
 </Callout>
 
 ## What #4471 holds
 
-<ProblemTable ticket={4471} {issues} />
+<CauseTable ticket={4471} />
+
+| problem | where the table counts it | ticket |
+| --- | --- | --- |
+| `parser` | the `parser` row | [#1](https://github.com/garrettmosrie/what-it-shows/issues/1) |
+| `hint` | the `hint` row, which has no ticket of its own until now | [#2](https://github.com/garrettmosrie/what-it-shows/issues/2) |
+| `one-day` | the note under the table: read as a one-day move, filed under `parser` by tenant | [#3](https://github.com/garrettmosrie/what-it-shows/issues/3) |
 
 Each report is placed by its tenant, channel and booking form (`causes.ts`), not by the tag intake
 gave it. The tag is a guess from the reporter's browser, and the table shows how often it disagrees.
@@ -40,27 +41,29 @@ gave it. The tag is a guess from the reporter's browser, and the table shows how
 
 Every tenant in #4471 writes the day first. The shared parser reads every date month first, so a
 booking for 7 April goes out for 4 July. Only dates whose day is 12 or less can flip, which is why
-it looks random from the outside. This is the bug #4471 was opened for, and the queued fix is for it.
+it looks random from the outside. This is the bug #4471 was opened for, and the queued fix is for
+it. Ticket [#1](https://github.com/garrettmosrie/what-it-shows/issues/1).
 
 ### `hint`: booking-v3's form tells day-first tenants to type month first
 
 booking-v3 prints `MM/DD/YYYY` under its date field. At a day-first tenant, people type what the
 hint says, month first, and the form reads it the tenant's way, day first. The symptom is the same
 swap, but the code is different: the parser fix does not touch it. Only reports that came in
-through the form at a booking-v3 tenant have it.
+through the form at a booking-v3 tenant have it. Ticket
+[#2](https://github.com/garrettmosrie/what-it-shows/issues/2).
 
 ### `one-day`: dates that move by one day
 
 Some reports are not a swap at all. "Invite says Tuesday 12 May. Calendar says Monday 11 May."
 (R-41202). A day/month swap cannot move a date by one day, so this is a different bug. It looks
 like a time-zone conversion: one meeting showed Tuesday to a client in Lisbon and Monday to a
-client in Toronto (R-41344). The desk spotted these (`desk-notes.json`), but the cause table
-files them under `parser` by tenant. Here they are counted apart.
+client in Toronto (R-41344). The desk spotted these (`desk-notes.json`); the table counts them
+under `parser`, where they are filed, and names them in the note. Ticket
+[#3](https://github.com/garrettmosrie/what-it-shows/issues/3).
 
 ## What changes on the desk
 
-- #4471 keeps `parser`. New `hint` and `one-day` reports go to their own tickets.
-- Count reports by id, not by export rows.
+- #4471 keeps `parser`. New `hint` reports go to #2, one-day moves to #3.
 - Place a report by tenant, channel and form, not by intake's tag.
 
 <RenderStamp {signature} />

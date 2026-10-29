@@ -8,12 +8,12 @@ each filed as an issue here with the number of reports it covers:
 - [#2](../../issues/2) `hint`: the booking-v3 form tells day-first tenants to type MM/DD/YYYY
 - [#3](../../issues/3) `one-day`: dates that move by one day, not a day/month swap
 
-The counts are in each issue, and computed at render time on the page.
+Each issue states the count the desk's own cause table gives that problem. The page shows the
+same table, rendered at build time.
 
 ## The page
 
-- Source: [`src/routes/kb/incidents/4471/problems/+page.svx`](src/routes/kb/incidents/4471/problems/+page.svx), signed, ending with `<RenderStamp {signature} />`.
-- Its logic: [`src/lib/kb/problems.ts`](src/lib/kb/problems.ts) and [`src/lib/kb/ProblemTable.svelte`](src/lib/kb/ProblemTable.svelte).
+- Source: [`src/routes/kb/incidents/4471/problems/+page.svx`](src/routes/kb/incidents/4471/problems/+page.svx), signed, ending with `<RenderStamp {signature} />`. It uses only the kb's own components, as exported (`CauseTable`, `Callout`, `RenderStamp`).
 - As the desk sees it, rendered by this kb's own layout and components: [`desk-view/4471-problems.html`](desk-view/4471-problems.html) (standalone HTML) and [`desk-view/4471-problems.png`](desk-view/4471-problems.png) (screenshot).
 
 ## Render it yourself
