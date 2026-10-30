@@ -4,7 +4,7 @@ This repo is the support desk's kb export (2026-10-04) with one page added. Tick
 marked known as one issue with 412 reports. The desk's own cause table shows two causes, each
 filed as an issue here with the number of reports it covers:
 
-- [#1](../../issues/1) `parser`: the shared parser reads day-first dates month first
+- [#7](../../issues/7) `parser`: the shared parser reads day-first dates month first
 - [#2](../../issues/2) `hint`: the booking-v3 form tells day-first tenants to type MM/DD/YYYY
 
 Each issue states the count the desk's own cause table gives that cause. The reports the desk read

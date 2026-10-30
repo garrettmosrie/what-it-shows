@@ -28,7 +28,7 @@ Not one issue. Two causes, two tickets. The parser fix leaves `hint` open.
 
 | cause | where the table counts it | ticket |
 | --- | --- | --- |
-| `parser` | the `parser` row, with the one-day moves named in the note under it | [#1](https://github.com/garrettmosrie/what-it-shows/issues/1) |
+| `parser` | the `parser` row, with the one-day moves named in the note under it | [#7](https://github.com/garrettmosrie/what-it-shows/issues/7) |
 | `hint` | the `hint` row, which had no ticket of its own | [#2](https://github.com/garrettmosrie/what-it-shows/issues/2) |
 
 Each report is placed by its tenant, channel and booking form (`causes.ts`), not by the tag intake
@@ -41,7 +41,7 @@ gave it. The tag is a guess from the reporter's browser, and the table shows how
 Every tenant in #4471 writes the day first. The shared parser reads every date month first, so a
 booking for 7 April goes out for 4 July. Only dates whose day is 12 or less can flip, which is why
 it looks random from the outside. This is the bug #4471 was opened for, and the queued fix is for
-it. Ticket [#1](https://github.com/garrettmosrie/what-it-shows/issues/1).
+it. Ticket [#7](https://github.com/garrettmosrie/what-it-shows/issues/7).
 
 The note under the table names the reports the desk read as a one-day move: "Invite says Tuesday
 12 May. Calendar says Monday 11 May." (R-41202). A day/month swap cannot move a date by one day.
